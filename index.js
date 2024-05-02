@@ -7,8 +7,17 @@ const postsRoutes = require("./Resources/Posts/posts.js");
 const commentRoutes = require("./Resources/Comments/comments.js");
 const db = require("./db.js");
 const dotenv = require('dotenv')
+const mongoose = require('mongoose')
 
 dotenv.config()
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(() => {
+    console.log("MongoDB connected");
+  }).catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 
 app.set("view engine", "ejs")  // we installed npm i ejs
 

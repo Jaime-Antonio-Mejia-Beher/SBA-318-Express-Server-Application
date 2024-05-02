@@ -1,11 +1,14 @@
 const express = require("express");
 const app = express();
-const port = 3400;
+const PORT = 3400;
 const router = express.Router();
 const userRoutes = require("./Resources/Users/users.js");
 const postsRoutes = require("./Resources/Posts/posts.js");
 const commentRoutes = require("./Resources/Comments/comments.js");
 const db = require("./db.js");
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 app.set("view engine", "ejs")  // we installed npm i ejs
 
@@ -35,6 +38,6 @@ app.use("/api/posts", postsRoutes);
 
 app.use("/api/comments", commentRoutes);
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("listening");
 });

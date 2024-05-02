@@ -1,6 +1,7 @@
 const express = require("express");
 const userRoutes = express.Router();
 const db = require("../../db.js");
+const jwt = require("jsonwebtoken");
 
 userRoutes
   .post("/register", (req, res) => {
@@ -15,13 +16,18 @@ userRoutes
   })
   .post("/login", (req, res) => {
     const { email, password } = req.body;
-    if (
-      db.users.find(
-        (user) => user.email === email && user.password === password
-      )
-    ) {
-      // To do: implement tokenize login with jwt
-      return res.json({ success: true, message: "Login successful" });
+    const user = db.users.find(
+      (user) => user.email === email && user.password === password
+    );
+    if (user) {
+      const accessToken = jwt.sign({ user }, process.env.JWT_ACCESS_SECRET, {
+        expiresIn: "30d",
+      });
+      return res.json({
+        success: true,
+        message: "Login successful",
+        data: { accessToken },
+      });
     }
     return res.json({ success: false, message: "Login fail" });
   })

@@ -17,3 +17,4 @@ postsRoutes
     .post()
 
 module.exports = postsRoutes
+

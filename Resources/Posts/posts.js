@@ -14,7 +14,14 @@ postsRoutes
     .get((req, res) => {
         res.json(posts)
     })
-    .post()
+    .post((req, res) => {
+
+    })
+
 
 module.exports = postsRoutes
+
+// ('/mongoDb')
+// ('/html')
+// ('/javascript')
 

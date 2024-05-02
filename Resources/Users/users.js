@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = express.Router();
 const db = require("../../db.js");
 const jwt = require("jsonwebtoken");
+const verifyAuth = require('../../Middleware/authMiddleware.js')
 
 userRoutes
   .post("/register", (req, res) => {
@@ -11,8 +12,9 @@ userRoutes
     if (db.users.find((user) => user.email === email)) {
       return res.json({ success: false, message: "Email already exist" });
     }
-    db.users.push({ name, email, password });
-    return res.json({ success: true });
+    const userData = { id: db.users.length + 1, name, email }
+    db.users.push({...userData, password });
+    return res.json({ success: true, data: userData });
   })
   .post("/login", (req, res) => {
     const { email, password } = req.body;
@@ -31,8 +33,8 @@ userRoutes
     }
     return res.json({ success: false, message: "Login fail" });
   })
-  .get("/", (req, res) => {
-    return res.json(db.users);
+  .get("/", verifyAuth, (req, res) => {
+    return res.json(db.users.find((u) => u.id === +req.params.id));
   });
 
 module.exports = userRoutes;

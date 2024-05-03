@@ -9,6 +9,7 @@ const db = require("./db.js");
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 
+
 dotenv.config()
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -31,11 +32,6 @@ app.get('/views/register', (req, res, next) => {
         userName: "Nathan"
     })
 })
-// submit button takes the user to this post
-// app.post('/validateRegister', (req, res, next) => {  
-//     console.log(req.body)
-//     res.send()
-// })
 
 app.get('/views/login', (req, res, next) => {
     res.render("login")     // rendering out a file login.ejs

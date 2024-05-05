@@ -1,27 +1,6 @@
 const mongoose = require('mongoose')
 
-/*
-const userSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true
-    },
-    title: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    message: {
-        type: String,
-        required: true
-    }
-});
-
-const Post = mongoose.model('Post', userSchema);    
-module.exports = Post;
-*/
-
-
+// This is will help MongoDb store the post information by providing the structure or schema
 // Define post schema
 const postSchema = new mongoose.Schema({
     userId: {

@@ -1,15 +1,17 @@
 const express = require("express");
 const app = express();
 const PORT = 3400;
-const router = express.Router();
+// const router = express.Router();
 const userRoutes = require("./Resources/Users/users.js");
 const postsRoutes = require("./Resources/Posts/posts.js");
 const commentRoutes = require("./Resources/Comments/comments.js");
 const db = require("./db.js");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const path = require("path"); // Import the path module
 
 dotenv.config();
+
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -29,8 +31,8 @@ app.set("view engine", "ejs"); // we installed npm i ejs
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json()); // middleware that defines to always parse as json
-
-app.use(express.urlencoded()); //  parses incoming requests with urlencoded payloads
+// when is this actually applied??
+app.use(express.urlencoded({ extended: true })); //  parses incoming requests with urlencoded payloads
 
 // the end point where the user sees the form to register
 app.get("/views/register", (req, res, next) => {

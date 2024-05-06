@@ -5,9 +5,8 @@ const comments = [
     {}
 ]
 commentRoutes
-    .route('/')
     // Get all comments
-    .get( async (req, res) => {
+    .get('/', async (req, res) => {
         try {
             const comments = await Comment.find();
             res.json(comments);
@@ -31,7 +30,7 @@ commentRoutes
     })
 
     // Post a new comment
-    .post( async (req, res) => {
+    .post('/', async (req, res) => {
         const comment = new Comment({
             text: req.body.text
         });
@@ -59,7 +58,7 @@ commentRoutes
     })
 
     // Delete comment (by id)
-    .delete('/:id', (req, res) => {
+    .delete('/:id', async (req, res) => {
         try {
             const deletedComment = await Comment.findByIdAndDelete(req.params.id);
             if (deletedComment) {
